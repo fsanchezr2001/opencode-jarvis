@@ -357,7 +357,7 @@ public class SecurityConfig {
 ## `Dockerfile`
 
 ```dockerfile
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:17-jre
 COPY target/*.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
 ```
@@ -406,7 +406,7 @@ curl -u jarvis:$JARVIS_PASSWORD \
 
 ## Verificación realizada
 
-`mvn -DskipTests package` compila correctamente con Java 21, Spring Boot 3.5.15 y Spring AI 1.1.8.
+`mvn -DskipTests package` compila correctamente con Java 17, Spring Boot 3.5.15 y Spring AI 1.1.8.
 
 ## Ajustes recomendados
 
