@@ -1,0 +1,87 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, sans-serif;
+  background: #14161a;
+  color: #e6e8eb;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+main {
+  width: min(760px, 92vw);
+  padding: 2rem 0 3rem;
+}
+
+h1 {
+  margin-bottom: 0.25rem;
+}
+
+.note {
+  color: #9aa3ad;
+  margin-top: 0;
+}
+
+section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.credentials label,
+.controls button {
+  flex: 1 1 180px;
+}
+
+input,
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.6rem;
+  border: 1px solid #3a4048;
+  border-radius: 6px;
+  background: #1d2026;
+  color: inherit;
+  font: inherit;
+}
+
+button {
+  padding: 0.65rem 1rem;
+  border: 1px solid #3a4048;
+  border-radius: 6px;
+  background: #2b6cb0;
+  color: white;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: #3a4048;
+  cursor: not-allowed;
+}
+
+#status {
+  color: #9aa3ad;
+  min-height: 1.4rem;
+}
+
+.answer {
+  white-space: pre-wrap;
+  padding: 1rem;
+  border: 1px solid #3a4048;
+  border-radius: 6px;
+  background: #1d2026;
+  min-height: 4rem;
+}

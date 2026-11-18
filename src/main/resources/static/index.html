@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jarvis</title>
+  <link rel="stylesheet" href="/jarvis.css">
+</head>
+<body>
+  <main>
+    <h1>Jarvis</h1>
+    <p class="note">Asistente del proyecto. La voz requiere Chrome o Edge.</p>
+
+    <section class="credentials">
+      <label for="user">Usuario</label>
+      <input id="user" autocomplete="username" value="jarvis">
+      <label for="pass">Contraseña</label>
+      <input id="pass" type="password" autocomplete="current-password">
+    </section>
+
+    <section class="controls">
+      <button id="speak" type="button">Hablar</button>
+      <button id="send" type="button">Enviar texto</button>
+      <button id="stop" type="button">Detener</button>
+    </section>
+
+    <p id="status" role="status">Listo</p>
+
+    <label for="question">Pregunta</label>
+    <textarea id="question" rows="4" placeholder="Escribe o dicta tu pregunta"></textarea>
+
+    <h2>Respuesta</h2>
+    <div id="answer" class="answer" aria-live="polite"></div>
+  </main>
+  <script src="/jarvis.js"></script>
+</body>
+</html>

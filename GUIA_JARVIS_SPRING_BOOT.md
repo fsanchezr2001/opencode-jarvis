@@ -8,7 +8,8 @@ Asistente privado, desplegado en servidor y limitado al contexto del proyecto (R
 - **RAG**: el código del proyecto se indexa en un `SimpleVectorStore` al arrancar, usando embeddings de Gemini.
 - **Tools** limitadas a lectura de archivos dentro de `PROJECT_PATH`.
 - **Memoria** por conversación con `MessageWindowChatMemory` + `InMemoryChatMemoryRepository`.
-- **Seguridad**: HTTP Basic y acceso solo a `/jarvis/**`.
+- **Interfaz web**: página estática con voz (Web Speech API) servida por la propia aplicación.
+- **Seguridad**: HTTP Basic para `/jarvis/**`; la interfaz estática es pública.
 - **Red**: el contenedor publica solo en `127.0.0.1`; el volumen del proyecto es de solo lectura.
 
 > Gemini es un modelo cloud: el prompt, el contexto y los embeddings se envían a Google. Si la privacidad debe ser total, sustituye el starter por `spring-ai-starter-model-ollama`.
@@ -29,7 +30,12 @@ jarvis/
     │   ├── ProjectTools.java
     │   ├── JarvisController.java
     │   └── SecurityConfig.java
-    └── resources/application.yml
+    └── resources/
+        ├── application.yml
+        └── static/
+            ├── index.html
+            ├── jarvis.js
+            └── jarvis.css
 ```
 
 ## `pom.xml`
@@ -339,6 +345,7 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/index.html", "/jarvis.js", "/jarvis.css").permitAll()
                         .requestMatchers("/jarvis/**").authenticated()
                         .anyRequest().denyAll())
                 .httpBasic(Customizer.withDefaults())
@@ -370,6 +377,16 @@ services:
     volumes:
       - ./mi-proyecto:/workspace/project:ro
 ```
+
+## Interfaz web con voz
+
+Los archivos `src/main/resources/static/index.html`, `jarvis.js` y `jarvis.css` se sirven en `http://127.0.0.1:8080/`.
+
+- **Hablar**: usa `SpeechRecognition` (`webkitSpeechRecognition`) con `lang = es-ES`; la transcripción se envía a `/jarvis/ask`.
+- **Respuesta**: se muestra en pantalla y se reproduce con `SpeechSynthesisUtterance`.
+- **Credenciales**: se introducen en la página y se envían como `Authorization: Basic`; no se guardan.
+- **Memoria**: el `conversationId` se mantiene en `sessionStorage`.
+- Requiere Chrome o Edge; si el navegador no soporta voz, el botón se deshabilita.
 
 ## Puesta en marcha
 
