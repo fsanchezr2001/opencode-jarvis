@@ -1,0 +1,20 @@
+spring:
+  ai:
+    google:
+      genai:
+        api-key: ${GEMINI_API_KEY}
+        chat:
+          options:
+            model: gemini-2.5-flash
+        embedding:
+          api-key: ${GEMINI_API_KEY}
+          text:
+            options:
+              model: text-embedding-004
+  security:
+    user:
+      name: jarvis
+      password: ${JARVIS_PASSWORD}
+
+server:
+  port: 8080

@@ -1,0 +1,11 @@
+services:
+  jarvis:
+    build: .
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      JARVIS_PASSWORD: ${JARVIS_PASSWORD}
+      PROJECT_PATH: /workspace/project
+    volumes:
+      - ./mi-proyecto:/workspace/project:ro
