@@ -2,5 +2,6 @@ target/
 *.class
 .env
 env.local.ps1
+.atl/
 .idea/
 *.iml
