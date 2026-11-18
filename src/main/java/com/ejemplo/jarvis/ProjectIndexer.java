@@ -23,14 +23,18 @@ public class ProjectIndexer {
 
     @PostConstruct
     public void index() throws IOException {
-        Path root = Path.of(System.getenv().getOrDefault("PROJECT_PATH", "./src/main/java"));
+        Path root = Path.of(System.getenv().getOrDefault("PROJECT_PATH", "./src/main/java"))
+                .toAbsolutePath().normalize();
         List<Document> docs = new ArrayList<>();
 
         try (var paths = Files.walk(root)) {
-            for (Path p : paths.filter(x -> x.toString().endsWith(".java")).toList()) {
+            for (Path p : paths.filter(Files::isRegularFile)
+                    .filter(x -> x.toString().endsWith(".java") || x.toString().endsWith(".kt")
+                            || x.toString().endsWith(".md"))
+                    .toList()) {
                 docs.add(Document.builder()
                         .text(Files.readString(p))
-                        .metadata("file", p.toString())
+                        .metadata("file", root.relativize(p).toString())
                         .build());
             }
         }
