@@ -3,35 +3,75 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Jarvis</title>
+  <title>J.A.R.V.I.S.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/jarvis.css">
 </head>
 <body>
-  <main>
-    <h1>Jarvis</h1>
-    <p class="note">Asistente del proyecto. La voz requiere Chrome o Edge.</p>
+  <div class="hud">
+    <header class="hud__top">
+      <div class="brand">
+        <span class="brand__dot"></span>
+        <h1>J.A.R.V.I.S.</h1>
+        <span class="brand__sub">Just A Rather Very Intelligent System</span>
+      </div>
+      <div class="statusbar">
+        <span class="pill pill--ok" id="connStatus">ONLINE</span>
+        <span class="pill" id="modelStatus">gemini-3.5-flash-lite</span>
+        <span class="pill" id="convStatus">conv: default</span>
+      </div>
+    </header>
 
-    <section class="credentials">
-      <label for="user">Usuario</label>
-      <input id="user" autocomplete="username" value="jarvis">
-      <label for="pass">Contraseña</label>
-      <input id="pass" type="password" autocomplete="current-password">
-    </section>
+    <main class="hud__main">
+      <aside class="panel panel--left">
+        <div class="panel__title">CREDENCIALES</div>
+        <div class="field">
+          <label for="user">USUARIO</label>
+          <input id="user" autocomplete="username" value="jarvis" spellcheck="false">
+        </div>
+        <div class="field">
+          <label for="pass">CLAVE DE ACCESO</label>
+          <input id="pass" type="password" autocomplete="current-password">
+        </div>
+        <div class="panel__title">CONTROLES</div>
+        <div class="controls">
+          <button id="speak" class="btn btn--primary" type="button">HABLAR</button>
+          <button id="send" class="btn" type="button">ENVIAR</button>
+          <button id="stop" class="btn btn--danger" type="button">DETENER</button>
+        </div>
+        <div class="panel__title">ESTADO</div>
+        <div id="status" class="status" role="status">Listo</div>
+        <div class="waveform" id="waveform" aria-hidden="true">
+          <canvas id="waveCanvas"></canvas>
+        </div>
+      </aside>
 
-    <section class="controls">
-      <button id="speak" type="button">Hablar</button>
-      <button id="send" type="button">Enviar texto</button>
-      <button id="stop" type="button">Detener</button>
-    </section>
+      <section class="core">
+        <div class="orb-wrap">
+          <canvas id="orbCanvas"></canvas>
+          <div class="orb-label" id="orbLabel">EN ESPERA</div>
+        </div>
+        <div class="transcript">
+          <div class="transcript__title">TRANSCRIPCIÓN</div>
+          <textarea id="question" rows="3" placeholder="Escribe o dicta tu consulta..."></textarea>
+        </div>
+      </section>
 
-    <p id="status" role="status">Listo</p>
+      <aside class="panel panel--right">
+        <div class="panel__title">RESPUESTA</div>
+        <div id="answer" class="answer" aria-live="polite"></div>
+        <div class="panel__title">HISTORIAL</div>
+        <ul id="history" class="history"></ul>
+      </aside>
+    </main>
 
-    <label for="question">Pregunta</label>
-    <textarea id="question" rows="4" placeholder="Escribe o dicta tu pregunta"></textarea>
-
-    <h2>Respuesta</h2>
-    <div id="answer" class="answer" aria-live="polite"></div>
-  </main>
+    <footer class="hud__bottom">
+      <span>SECURE CHANNEL · HTTP BASIC · RAG + TOOLS</span>
+      <span id="clock"></span>
+    </footer>
+  </div>
   <script src="/jarvis.js"></script>
 </body>
 </html>
